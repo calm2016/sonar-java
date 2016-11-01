@@ -85,6 +85,8 @@
 
     <!-- Release: enable publication to Bintray -->
     <artifactsToPublish>${project.groupId}:sonar-java-plugin:jar</artifactsToPublish>
+    <!-- should be removed with realease of parent 37 -->
+    <version.artifactory.plugin>2.6.1</version.artifactory.plugin>
   </properties>
 
   <build>
