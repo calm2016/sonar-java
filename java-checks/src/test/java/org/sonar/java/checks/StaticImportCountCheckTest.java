@@ -25,6 +25,11 @@ import org.sonar.java.checks.verifier.JavaCheckVerifier;
 public class StaticImportCountCheckTest {
 
   @Test
+  public void compliantImports() {
+    JavaCheckVerifier.verifyNoIssue("src/test/files/checks/StaticImportCountCheck/CompliantImports.java", new StaticImportCountCheck());
+  }
+
+  @Test
   public void justStaticImports() {
     JavaCheckVerifier.verify("src/test/files/checks/StaticImportCountCheck/StaticImportCountCheck.java", new StaticImportCountCheck());
   }
@@ -32,6 +37,20 @@ public class StaticImportCountCheckTest {
   @Test
   public void mixedStandardAndStaticImports() {
     JavaCheckVerifier.verify("src/test/files/checks/StaticImportCountCheck/MixedStandardAndStaticImports.java", new StaticImportCountCheck());
+  }
+
+  @Test
+  public void customThresholdCompliant() {
+    StaticImportCountCheck check = new StaticImportCountCheck();
+    check.setThreshold(5);
+    JavaCheckVerifier.verifyNoIssue("src/test/files/checks/StaticImportCountCheck/MixedStandardAndStaticImportsCompliant.java", check);
+  }
+
+  @Test
+  public void customThresholdNonCompliant() {
+    StaticImportCountCheck check = new StaticImportCountCheck();
+    check.setThreshold(3);
+    JavaCheckVerifier.verify("src/test/files/checks/StaticImportCountCheck/MixedStandardAndStaticImportsCustomThreshold.java", check);
   }
 
 }
